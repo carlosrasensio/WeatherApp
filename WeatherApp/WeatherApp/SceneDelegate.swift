@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: Main view configuration
     guard let windowScene = (scene as? UIWindowScene) else { return }
         
-    let navigationController = UINavigationController(rootViewController: WeatherHomeViewController())
+    let navigationController = UINavigationController(rootViewController: WeatherHomeViewController(networkManager: NetworkManager()))
     window = UIWindow(frame: windowScene.coordinateSpace.bounds)
     window?.windowScene = windowScene
     window?.rootViewController = navigationController
