@@ -16,10 +16,12 @@ final class WeatherDetailViewController: UIViewController {
   private lazy var temperatureLabel = UILabel()
   private lazy var weatherDescriptionLabel = UILabel()
   
+  // MARK: Variables
+  var list: List?
+  
   // MARK: Life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     setupUI()
     setupInfo()
   }
@@ -30,7 +32,6 @@ final class WeatherDetailViewController: UIViewController {
 private extension WeatherDetailViewController {
   func setupUI() {
     view.backgroundColor = .white
-    
     setupActivityIndicator()
     setupBackgroundImageView()
     setupDayLabel()
@@ -40,10 +41,15 @@ private extension WeatherDetailViewController {
   }
   
   func setupInfo() {
-    dayLabel.text = "Thursday 22 December"
-    weatherImageVIew.image = UIImage(named: "iconEiffelTower")
-    temperatureLabel.text = "18℃"
-    weatherDescriptionLabel.text = "Is a nice sunny day!"
+    guard let list else {
+      showAlert(title: "ERROR", message: "We have experienced problems retrieving data. Try again later.")
+      return
+    }
+    
+    dayLabel.text = ""
+//    weatherImageVIew.image
+    temperatureLabel.text = "xxxx"
+    weatherDescriptionLabel.text = "xxxx"
   }
   
   func setupActivityIndicator() {
