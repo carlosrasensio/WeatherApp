@@ -20,6 +20,7 @@ final class RequestHandler: RequestHandlerProtocol {
                   Constants.NetworkManager.Optionals.units +
                   Constants.NetworkManager.Optionals.numberOfDays +
                   Constants.NetworkManager.Endpoints.apiKey)!
+    print("💻 ", url)
     
     return url
   }
