@@ -10,7 +10,7 @@ import UIKit
 final class WeatherHomeViewController: UIViewController {
   // MARK: Objects
   private lazy var activityIndicator = UIActivityIndicatorView()
-  private lazy var backgroundButton = UIButton()
+  private lazy var backgroundImageView = UIImageView()
   private lazy var cityLabel = UILabel()
   private lazy var countryCodeLabel = UILabel()
   private lazy var weatherImageVIew = UIImageView()
@@ -18,21 +18,53 @@ final class WeatherHomeViewController: UIViewController {
   private lazy var tableView = UITableView()
   
   // MARK: Variables
-  // MARK: Variables
-  private var viewModel = WeatherHomeViewModel()
-  
+  private var viewModel: WeatherHomeViewModel?
+  private var networkManager: NetworkManager
   private let cellId = "cellId"
-
-  private var weatherArray = [LocationWeather]() {
-    didSet { reloadTableView() }
+  private var forecast: Forecast?
+  private var weatherList = [List]() {
+    didSet {
+      reloadTableView()
+    }
+  }
+  
+  // MARK: Bind ViewModel
+  func bind() {
+    viewModel = WeatherHomeViewModel(view: self, networkManager: networkManager)
+  }
+  
+  // MARK: - Initializer
+  init(networkManager: NetworkManager) {
+    self.networkManager = networkManager
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
   
   // MARK: Life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    bind()
     setupUI()
-    setupInfo()
+    getLocationWeather()
+  }
+  
+  // MARK: Network data
+  func getLocationWeather() {
+    Task {
+      do {
+        let result = try await viewModel?.getLocationWeatherAsync()
+        forecast = result
+        guard let forecast else { throw NetworkError.noData }
+        weatherList = forecast.list
+        setupInfo()
+      } catch {
+        print("❌ [V] Request failed with error: \(error)")
+        showAlert(title: "ERROR", message: error.localizedDescription)
+      }
+    }
   }
 }
 
@@ -40,19 +72,28 @@ final class WeatherHomeViewController: UIViewController {
 
 private extension WeatherHomeViewController {
   func setupUI() {
-    setupActivityIndicator()
-    setupBackgroundButton()
-    setupCityLabel()
-    setupCountryCodeLabel()
-    setupWeatherImageView()
-    setupTemperatureLabel()
-    setupTableView()
+    DispatchQueue.main.async {
+      self.setupActivityIndicator()
+      self.setupBackgroundImageView()
+      self.setupCityLabel()
+      self.setupCountryCodeLabel()
+      self.setupWeatherImageView()
+      self.setupTemperatureLabel()
+      self.setupTableView()
+    }
   }
   
   func setupInfo() {
-    cityLabel.text = Constants.location.city
-    countryCodeLabel.text = Constants.location.countyCode.uppercased()
-    weatherImageVIew.image = UIImage(named: "iconEiffelTower")
+    guard let forecast else {
+      showAlert(title: "ERROR", message: "We have experienced problems retrieving data. Try again later.")
+      return
+    }
+    
+    cityLabel.text = forecast.city.name
+    countryCodeLabel.text = forecast.city.country
+//    let imageUrl = Constants.NetworkManager.URLs.icon + weatherArray[0].weather[0].icon +
+//        ".png"
+//    weatherImageVIew.getImageFromURL(urlString: imageUrl)
     temperatureLabel.text = "18℃"
   }
   
@@ -66,16 +107,15 @@ private extension WeatherHomeViewController {
     activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
   }
   
-  func setupBackgroundButton() {
-    view.addSubview(backgroundButton)
+  func setupBackgroundImageView() {
+    view.addSubview(backgroundImageView)
     
-    backgroundButton.setImage(UIImage(named: "imageParisHome"), for: .normal)
-    backgroundButton.addTarget(self, action:#selector(navigateToDetailScreen), for: .touchUpInside)
-    backgroundButton.translatesAutoresizingMaskIntoConstraints = false
-    backgroundButton.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-    backgroundButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-    backgroundButton.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-    backgroundButton.bottomAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    backgroundImageView.image = UIImage(named: "imageParisHome")
+    backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+    backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+    backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+    backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    backgroundImageView.bottomAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
   }
   
   func setupCityLabel() {
@@ -125,7 +165,7 @@ private extension WeatherHomeViewController {
     
     tableView.backgroundColor = Constants.appColor
     tableView.translatesAutoresizingMaskIntoConstraints = false
-    tableView.topAnchor.constraint(equalTo: backgroundButton.bottomAnchor).isActive = true
+    tableView.topAnchor.constraint(equalTo: backgroundImageView.bottomAnchor).isActive = true
     tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
     tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -151,8 +191,9 @@ private extension WeatherHomeViewController {
 // MARK: - Actions
 
 private extension WeatherHomeViewController {
-  @objc func navigateToDetailScreen() {
+  func navigateToDetailScreen(list: List) {
     let detailScreen = WeatherDetailViewController()
+    detailScreen.list = list
     navigationController?.pushViewController(detailScreen, animated: true)
   }
 }
@@ -161,31 +202,28 @@ private extension WeatherHomeViewController {
 
 extension WeatherHomeViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    weatherArray.count
+    weatherList.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
     cell.backgroundColor = .white
-    let item = weatherArray[indexPath.row]
-    cell.textLabel?.text = "\(item.0) - \(item.1)"
     cell.textLabel?.textColor = Constants.appColor
     cell.textLabel?.font = UIFont.systemFont(ofSize: 20)
+    cell.textLabel?.text = "\(weatherList[indexPath.row].dateString) - \(weatherList[indexPath.row].main.temp) - \(weatherList[indexPath.row].weather[0].weatherDescription)"
     
     return cell
   }
-  
-
 }
 
 // MARK: - UITableViewDelegate
 
 extension WeatherHomeViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      navigateToDetailScreen()
+    navigateToDetailScreen(list: weatherList[indexPath.row])
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-      140
+      100
   }
 }
