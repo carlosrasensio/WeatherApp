@@ -210,7 +210,12 @@ extension WeatherHomeViewController: UITableViewDataSource {
     cell.backgroundColor = .white
     cell.textLabel?.textColor = Constants.appColor
     cell.textLabel?.font = UIFont.systemFont(ofSize: 20)
-    cell.textLabel?.text = "\(weatherList[indexPath.row].dateString) - \(weatherList[indexPath.row].main.temp) - \(weatherList[indexPath.row].weather[0].weatherDescription)"
+    let dateString = weatherList[indexPath.row].dateString
+    if let date = dateString.stringtoDate() {
+      cell.textLabel?.text = "\(date.dateToString()) - \(weatherList[indexPath.row].main.temp)℃ - \(weatherList[indexPath.row].weather[0].weatherDescription)"
+    } else {
+      cell.textLabel?.text = "? - \(weatherList[indexPath.row].main.temp) - \(weatherList[indexPath.row].weather[0].weatherDescription)"
+    }
     
     return cell
   }
