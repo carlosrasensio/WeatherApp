@@ -13,6 +13,7 @@
 		709872D52953E383005DE453 /* WeatherDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709872D42953E383005DE453 /* WeatherDetailViewController.swift */; };
 		709872DE2954C840005DE453 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709872DD2954C840005DE453 /* UIViewController+Alert.swift */; };
 		709872E02954C851005DE453 /* UIImageView+URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709872DF2954C851005DE453 /* UIImageView+URLSession.swift */; };
+		709872E32954E664005DE453 /* Date+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709872E22954E664005DE453 /* Date+String.swift */; };
 		70BA3FA529537AF300F14D15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BA3FA429537AF300F14D15 /* AppDelegate.swift */; };
 		70BA3FA729537AF300F14D15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BA3FA629537AF300F14D15 /* SceneDelegate.swift */; };
 		70BA3FAF29537AF300F14D15 /* WeatherApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 70BA3FAD29537AF300F14D15 /* WeatherApp.xcdatamodeld */; };
@@ -53,6 +54,7 @@
 		709872D42953E383005DE453 /* WeatherDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailViewController.swift; sourceTree = "<group>"; };
 		709872DD2954C840005DE453 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		709872DF2954C851005DE453 /* UIImageView+URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+URLSession.swift"; sourceTree = "<group>"; };
+		709872E22954E664005DE453 /* Date+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+String.swift"; sourceTree = "<group>"; };
 		70BA3FA129537AF300F14D15 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70BA3FA429537AF300F14D15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70BA3FA629537AF300F14D15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			children = (
 				709872DD2954C840005DE453 /* UIViewController+Alert.swift */,
 				709872DF2954C851005DE453 /* UIImageView+URLSession.swift */,
+				709872E22954E664005DE453 /* Date+String.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				70BA3FED2953899900F14D15 /* NetworkError.swift in Sources */,
 				709872D32953917E005DE453 /* WeatherHomeTableViewCell.swift in Sources */,
 				70BA3FA529537AF300F14D15 /* AppDelegate.swift in Sources */,
+				709872E32954E664005DE453 /* Date+String.swift in Sources */,
 				70BA3FA729537AF300F14D15 /* SceneDelegate.swift in Sources */,
 				709872DE2954C840005DE453 /* UIViewController+Alert.swift in Sources */,
 				709872E02954C851005DE453 /* UIImageView+URLSession.swift in Sources */,
