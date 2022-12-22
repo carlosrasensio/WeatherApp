@@ -9,7 +9,24 @@ import Foundation
 
 final class WeatherHomeViewModel {
   // MARK: Variables
-  weak var view: WeatherDetailViewController?
-  private var networkManager = NetworkManager()
+  private weak var view: WeatherHomeViewController?
+  private var networkManager: NetworkManager
+  
+  // MARK: Initializer
+  init(view: WeatherHomeViewController, networkManager: NetworkManager) {
+    self.view = view
+    self.networkManager = networkManager
+  }
+  
+  // MARK: Network data
+  func getLocationWeatherAsync() async throws -> Forecast {
+    do {
+      let result = try await networkManager.getLocationWeather()
+      print("👀", result)
+      return result
+    } catch {
+      print("❌ [VM] Request failed with error: \(error)")
+      throw error
+    }
   }
 }
