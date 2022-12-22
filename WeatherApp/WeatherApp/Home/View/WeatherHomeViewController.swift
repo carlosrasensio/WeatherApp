@@ -30,7 +30,7 @@ final class WeatherHomeViewController: UIViewController {
   }
 }
 
-// MARK: - Private configuration methods
+// MARK: - Private UI methods
 
 private extension WeatherHomeViewController {
   func setupUI() {
@@ -64,7 +64,7 @@ private extension WeatherHomeViewController {
     view.addSubview(backgroundButton)
     
     backgroundButton.setImage(UIImage(named: "imageParisHome"), for: .normal)
-    backgroundButton.addTarget(self, action:#selector(didTapBackgroundButton), for: .touchUpInside)
+    backgroundButton.addTarget(self, action:#selector(navigateToDetailScreen), for: .touchUpInside)
     backgroundButton.translatesAutoresizingMaskIntoConstraints = false
     backgroundButton.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
     backgroundButton.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -117,6 +117,7 @@ private extension WeatherHomeViewController {
     tableView.delegate = self
     tableView.dataSource = self
     
+    tableView.backgroundColor = Constants.appColor
     tableView.translatesAutoresizingMaskIntoConstraints = false
     tableView.topAnchor.constraint(equalTo: backgroundButton.bottomAnchor).isActive = true
     tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -137,8 +138,9 @@ private extension WeatherHomeViewController {
 // MARK: - Actions
 
 private extension WeatherHomeViewController {
-  @objc func didTapBackgroundButton() {
-    // TODO: navigate
+  @objc func navigateToDetailScreen() {
+    let detailScreen = WeatherDetailViewController()
+    navigationController?.pushViewController(detailScreen, animated: true)
   }
 }
 
@@ -151,10 +153,10 @@ extension WeatherHomeViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-    cell.backgroundColor = .magenta
+    cell.backgroundColor = .white
     let item = weatherArray[indexPath.row]
     cell.textLabel?.text = "\(item.0) - \(item.1)"
-    cell.textLabel?.textColor = .white
+    cell.textLabel?.textColor = Constants.appColor
     cell.textLabel?.font = UIFont.systemFont(ofSize: 20)
     
     return cell
@@ -167,7 +169,7 @@ extension WeatherHomeViewController: UITableViewDataSource {
 
 extension WeatherHomeViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    // TODO: navigate
+      navigateToDetailScreen()
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

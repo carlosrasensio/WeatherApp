@@ -25,7 +25,7 @@ final class WeatherDetailViewController: UIViewController {
   }
 }
 
-// MARK: - Private configuration methods
+// MARK: - Private UI methods
 
 private extension WeatherDetailViewController {
   func setupUI() {
@@ -74,7 +74,7 @@ private extension WeatherDetailViewController {
     dayLabel.textAlignment = .center
     dayLabel.font = UIFont.boldSystemFont(ofSize: 30)
     dayLabel.translatesAutoresizingMaskIntoConstraints = false
-    dayLabel.topAnchor.constraint(equalTo: backgroundImageVIew.bottomAnchor, constant: 8).isActive = true
+    dayLabel.topAnchor.constraint(equalTo: backgroundImageVIew.bottomAnchor, constant: 12).isActive = true
     dayLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12).isActive = true
     dayLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12).isActive = true
 
