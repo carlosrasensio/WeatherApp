@@ -18,8 +18,14 @@ final class WeatherHomeViewController: UIViewController {
   private lazy var tableView = UITableView()
   
   // MARK: Variables
+  // MARK: Variables
+  private var viewModel = WeatherHomeViewModel()
+  
   private let cellId = "cellId"
-  private let weatherArray = [("Monday", "19℃"), ("Tuesday", "20℃"), ("Wednesday", "21℃"), ("Thursday", "22℃")]
+
+  private var weatherArray = [LocationWeather]() {
+    didSet { reloadTableView() }
+  }
   
   // MARK: Life cycle
   override func viewDidLoad() {
@@ -123,6 +129,13 @@ private extension WeatherHomeViewController {
     tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
     tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+  }
+  
+  func reloadTableView() {
+    DispatchQueue.main.async {
+      self.showLoading(false)
+      self.tableView.reloadData()
+    }
   }
   
   func showLoading(_ value: Bool) {
