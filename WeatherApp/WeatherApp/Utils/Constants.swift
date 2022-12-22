@@ -11,8 +11,8 @@ import UIKit
 struct Constants {
   static let appName = "Weather App"
   static let location = (city: "Paris", countyCode: "fr")
-  static let appColor = UIColor.systemPink
-  
+  static let appColor = UIColor(red: 1, green: 51/255, blue: 153/255, alpha: 1)
+
   struct NetworkManager {
     static let version = 2.5
     static let units = "metric"

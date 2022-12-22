@@ -115,12 +115,12 @@
 		70BA3FA329537AF300F14D15 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
-				70BA3FE42953817200F14D15 /* Home */,
-				70BA3FE52953817D00F14D15 /* Detail */,
 				70BA3FA429537AF300F14D15 /* AppDelegate.swift */,
 				70BA3FA629537AF300F14D15 /* SceneDelegate.swift */,
 				70BA3FB229537AF400F14D15 /* LaunchScreen.storyboard */,
 				70BA3FB529537AF400F14D15 /* Info.plist */,
+				70BA3FE42953817200F14D15 /* Home */,
+				70BA3FE52953817D00F14D15 /* Detail */,
 				70BA3FD929537B6300F14D15 /* Utils */,
 				70BA3FDA29537B7F00F14D15 /* Resources */,
 			);
@@ -546,7 +546,6 @@
 				INFOPLIST_FILE = WeatherApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -574,7 +573,6 @@
 				INFOPLIST_FILE = WeatherApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
