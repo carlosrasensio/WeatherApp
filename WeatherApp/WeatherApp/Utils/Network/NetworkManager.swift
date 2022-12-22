@@ -9,46 +9,29 @@ import Foundation
 
 protocol NetworkManagerProtocol {
   var requestHandler: RequestHandler { get }
-  func getLocationWeather(completion: @escaping (Result<LocationWeather, NetworkError>) -> Void)
+  func getLocationWeather() async throws -> Forecast
 }
 
 final class NetworkManager: NetworkManagerProtocol {
   let requestHandler = RequestHandler()
   
-  func getLocationWeather(completion: @escaping (Result<LocationWeather, NetworkError>) -> Void) {
-    var request = self.requestHandler.getRequest()
-    request.httpMethod = "GET"
-    request.addValue("application/json", forHTTPHeaderField: "Content-type")
-    let session = URLSession.shared
+  func getLocationWeather() async throws -> Forecast {
+    let url = requestHandler.getURL()
+    let (data, response) = try await URLSession.shared.data(from: url)
     
-    let task = session.dataTask(with: request) { data, response, error in
-      if let error {
-        print("\n❌ Transport Error: \(error.localizedDescription)")
-        completion(.failure(.transportError(error)))
-        return
-      }
-      
-      if let response = response as? HTTPURLResponse, !(200...299).contains(response.statusCode) {
-        print("\n❌ Server Error: response status code \(response.statusCode)")
-        completion(.failure(.serverError(statusCode: response.statusCode)))
-        return
-      }
-      
-      guard let data else {
-        print("\n❌ Error: no data")
-        completion(.failure(.noData))
-        return
-      }
-      
-      do {
-        let decoder = JSONDecoder()
-        let searchedLocationWeather = try decoder.decode(LocationWeather.self, from: data)
-        completion(.success(searchedLocationWeather))
-      } catch let error {
-        print("\n❌ Decoding Error: \(error.localizedDescription)")
-        completion(.failure(.decodingError(error)))
-      }
+    if let response = response as? HTTPURLResponse, !(200...299).contains(response.statusCode) {
+      print("\n❌ Server Error: response status code \(response.statusCode)")
+      throw NetworkError.serverError(statusCode: response.statusCode)
     }
-    task.resume()
+    
+    do {
+      let decoder = JSONDecoder()
+      let locationWeather = try decoder.decode(Forecast.self, from: data)
+      
+      return locationWeather
+    } catch {
+      print("\n❌ Decoding Error: \(error.localizedDescription)")
+      throw NetworkError.decodingError(error)
+    }
   }
 }
