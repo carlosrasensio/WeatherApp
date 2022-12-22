@@ -8,6 +8,8 @@
 import Foundation
 
 final class WeatherHomeViewModel {
-  func viewDidLoad() {
+  // MARK: Variables
+  weak var view: WeatherDetailViewController?
+  private var networkManager = NetworkManager()
   }
 }
