@@ -25,7 +25,6 @@ struct Constants {
     struct URLs {
       static let base = "https://api.openweathermap.org/data/\(NetworkManager.version)"
       static let icon = "https://openweathermap.org/img/w/"
-
     }
     
     struct Optionals {

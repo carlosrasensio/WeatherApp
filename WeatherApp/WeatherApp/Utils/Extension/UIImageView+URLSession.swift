@@ -12,13 +12,15 @@ extension UIImageView {
     if self.image == nil {
       self.image = UIImage(named: "icnOpenWeather")
     }
-    URLSession.shared.dataTask(with: URL(string: urlString)!) { (data, response, error) in
+    
+    URLSession.shared.dataTask(with: URL(string: urlString)!) { data, response, error in
       guard error == nil else { return }
       DispatchQueue.main.async {
         guard let data = data else { return }
         let image = UIImage(data: data )
         self.image = image
       }
-    }.resume()
+    }
+    .resume()
   }
 }

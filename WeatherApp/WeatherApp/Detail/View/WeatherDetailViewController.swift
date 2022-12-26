@@ -46,10 +46,11 @@ private extension WeatherDetailViewController {
       return
     }
     
-    dayLabel.text = ""
-//    weatherImageVIew.image
-    temperatureLabel.text = "xxxx"
-    weatherDescriptionLabel.text = "xxxx"
+    dayLabel.text = list.dateString.uppercased()
+    let imageUrl = Constants.NetworkManager.URLs.icon + list.weather[0].icon + ".png"
+    weatherImageVIew.getImageFromURL(urlString: imageUrl)
+    temperatureLabel.text = "\(list.main.temp)℃"
+    weatherDescriptionLabel.text = list.weather[0].weatherDescription
   }
   
   func setupActivityIndicator() {
