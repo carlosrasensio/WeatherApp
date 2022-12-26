@@ -14,6 +14,7 @@
 		709872DE2954C840005DE453 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709872DD2954C840005DE453 /* UIViewController+Alert.swift */; };
 		709872E02954C851005DE453 /* UIImageView+URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709872DF2954C851005DE453 /* UIImageView+URLSession.swift */; };
 		709872E32954E664005DE453 /* Date+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709872E22954E664005DE453 /* Date+String.swift */; };
+		709872EA295A02BD005DE453 /* WeatherForecastMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 709872E9295A02BD005DE453 /* WeatherForecastMock.json */; };
 		70BA3FA529537AF300F14D15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BA3FA429537AF300F14D15 /* AppDelegate.swift */; };
 		70BA3FA729537AF300F14D15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BA3FA629537AF300F14D15 /* SceneDelegate.swift */; };
 		70BA3FAF29537AF300F14D15 /* WeatherApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 70BA3FAD29537AF300F14D15 /* WeatherApp.xcdatamodeld */; };
@@ -55,6 +56,7 @@
 		709872DD2954C840005DE453 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		709872DF2954C851005DE453 /* UIImageView+URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+URLSession.swift"; sourceTree = "<group>"; };
 		709872E22954E664005DE453 /* Date+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+String.swift"; sourceTree = "<group>"; };
+		709872E9295A02BD005DE453 /* WeatherForecastMock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = WeatherForecastMock.json; sourceTree = "<group>"; };
 		70BA3FA129537AF300F14D15 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		70BA3FA429537AF300F14D15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		70BA3FA629537AF300F14D15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +112,14 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		709872E4295A00B7005DE453 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				709872E9295A02BD005DE453 /* WeatherForecastMock.json */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		70BA3F9829537AF300F14D15 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				70BA3FBE29537AF400F14D15 /* WeatherAppTests.swift */,
+				709872E4295A00B7005DE453 /* Mocks */,
 			);
 			path = WeatherAppTests;
 			sourceTree = "<group>";
@@ -364,6 +375,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				709872EA295A02BD005DE453 /* WeatherForecastMock.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
