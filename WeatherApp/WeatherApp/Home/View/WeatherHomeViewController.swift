@@ -13,8 +13,6 @@ final class WeatherHomeViewController: UIViewController {
   private lazy var backgroundImageView = UIImageView()
   private lazy var cityLabel = UILabel()
   private lazy var countryCodeLabel = UILabel()
-  private lazy var weatherImageVIew = UIImageView()
-  private lazy var temperatureLabel = UILabel()
   private lazy var tableView = UITableView()
   
   // MARK: Variables
@@ -77,8 +75,6 @@ private extension WeatherHomeViewController {
       self.setupBackgroundImageView()
       self.setupCityLabel()
       self.setupCountryCodeLabel()
-      self.setupWeatherImageView()
-      self.setupTemperatureLabel()
       self.setupTableView()
     }
   }
@@ -91,10 +87,6 @@ private extension WeatherHomeViewController {
     
     cityLabel.text = forecast.city.name
     countryCodeLabel.text = forecast.city.country
-//    let imageUrl = Constants.NetworkManager.URLs.icon + weatherArray[0].weather[0].icon +
-//        ".png"
-//    weatherImageVIew.getImageFromURL(urlString: imageUrl)
-    temperatureLabel.text = "18℃"
   }
   
   func setupActivityIndicator() {
@@ -124,7 +116,7 @@ private extension WeatherHomeViewController {
     cityLabel.textColor = Constants.appColor
     cityLabel.font = UIFont.boldSystemFont(ofSize: 32)
     cityLabel.translatesAutoresizingMaskIntoConstraints = false
-    cityLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 60).isActive = true
+    cityLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
     cityLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 80).isActive = true
   }
   
@@ -136,24 +128,6 @@ private extension WeatherHomeViewController {
     countryCodeLabel.translatesAutoresizingMaskIntoConstraints = false
     countryCodeLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 8).isActive = true
     countryCodeLabel.centerXAnchor.constraint(equalTo: cityLabel.centerXAnchor).isActive = true
-  }
-  
-  func setupWeatherImageView() {
-    view.addSubview(weatherImageVIew)
-    
-    weatherImageVIew.translatesAutoresizingMaskIntoConstraints = false
-    weatherImageVIew.topAnchor.constraint(equalTo: countryCodeLabel.bottomAnchor, constant: 18).isActive = true
-    weatherImageVIew.centerXAnchor.constraint(equalTo: countryCodeLabel.centerXAnchor).isActive = true
-  }
-  
-  func setupTemperatureLabel() {
-    view.addSubview(temperatureLabel)
-    
-    temperatureLabel.textColor = Constants.appColor
-    temperatureLabel.font = UIFont.boldSystemFont(ofSize: 40)
-    temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
-    temperatureLabel.topAnchor.constraint(equalTo: weatherImageVIew.bottomAnchor, constant: 8).isActive = true
-    temperatureLabel.centerXAnchor.constraint(equalTo: weatherImageVIew.centerXAnchor).isActive = true
   }
   
   func setupTableView() {
