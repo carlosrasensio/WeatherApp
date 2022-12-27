@@ -17,7 +17,7 @@ final class WeatherDetailViewController: UIViewController {
   private lazy var weatherDescriptionLabel = UILabel()
   
   // MARK: Variables
-  var list: List?
+  var listItem: ListItem?
   
   // MARK: Life cycle
   override func viewDidLoad() {
@@ -41,16 +41,16 @@ private extension WeatherDetailViewController {
   }
   
   func setupInfo() {
-    guard let list else {
+    guard let listItem else {
       showAlert(title: "ERROR", message: "We have experienced problems retrieving data. Try again later.")
       return
     }
     
-    dayLabel.text = list.dateString.uppercased()
-    let imageUrl = Constants.NetworkManager.URLs.icon + list.weather[0].icon + ".png"
+    dayLabel.text = listItem.dateString.stringtoDate()?.dateToHourString()
+    let imageUrl = Constants.NetworkManager.URLs.icon + listItem.weather[0].icon + ".png"
     weatherImageVIew.getImageFromURL(urlString: imageUrl)
-    temperatureLabel.text = "\(list.main.temp)℃"
-    weatherDescriptionLabel.text = list.weather[0].weatherDescription
+    temperatureLabel.text = "\(listItem.main.temp)℃"
+    weatherDescriptionLabel.text = listItem.weather[0].weatherDescription
   }
   
   func setupActivityIndicator() {
