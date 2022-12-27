@@ -17,7 +17,7 @@ extension Date {
   
   func dateToHourString() -> String {
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "HH"
+    dateFormatter.dateFormat = "E, d MMM - HH"
     
     return dateFormatter.string(from: self) + "h"
   }
