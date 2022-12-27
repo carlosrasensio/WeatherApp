@@ -14,6 +14,13 @@ extension Date {
     
     return dateFormatter.string(from: self).uppercased()
   }
+  
+  func dateToHourString() -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "HH"
+    
+    return dateFormatter.string(from: self) + "h"
+  }
 }
 
 extension String {

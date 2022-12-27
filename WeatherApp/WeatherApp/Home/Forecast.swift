@@ -11,7 +11,7 @@ import Foundation
 struct Forecast: Codable {
   let cod: String
   let message, cnt: Int
-  let list: [List]
+  let list: [ListItem]
   let city: City
 }
 
@@ -24,7 +24,7 @@ struct City: Codable {
 }
 
 // MARK: - List
-struct List: Codable {
+struct ListItem: Codable {
   let date: Int
   let main: MainInfo
   let weather: [Weather]
