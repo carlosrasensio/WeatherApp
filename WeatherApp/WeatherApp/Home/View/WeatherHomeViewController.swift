@@ -20,7 +20,7 @@ final class WeatherHomeViewController: UIViewController {
   private var networkManager: NetworkManager
   private let cellId = "cellId"
   private var forecast: Forecast?
-  private var weatherList = [List]() {
+  private var weatherList = [ListItem]() {
     didSet {
       reloadTableView()
     }
@@ -165,9 +165,9 @@ private extension WeatherHomeViewController {
 // MARK: - Actions
 
 private extension WeatherHomeViewController {
-  func navigateToDetailScreen(list: List) {
+  func navigateToDetailScreen(listItem: ListItem) {
     let detailScreen = WeatherDetailViewController()
-    detailScreen.list = list
+    detailScreen.listItem = listItem
     navigationController?.pushViewController(detailScreen, animated: true)
   }
 }
@@ -186,9 +186,9 @@ extension WeatherHomeViewController: UITableViewDataSource {
     cell.textLabel?.font = UIFont.systemFont(ofSize: 20)
     let dateString = weatherList[indexPath.row].dateString
     if let date = dateString.stringtoDate() {
-      cell.textLabel?.text = "\(date.dateToString()) - \(weatherList[indexPath.row].main.temp)℃ - \(weatherList[indexPath.row].weather[0].weatherDescription)"
+      cell.textLabel?.text = "\(date.dateToHourString())"
     } else {
-      cell.textLabel?.text = "? - \(weatherList[indexPath.row].main.temp) - \(weatherList[indexPath.row].weather[0].weatherDescription)"
+      cell.textLabel?.text = "-"
     }
     
     return cell
@@ -199,7 +199,7 @@ extension WeatherHomeViewController: UITableViewDataSource {
 
 extension WeatherHomeViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    navigateToDetailScreen(list: weatherList[indexPath.row])
+    navigateToDetailScreen(listItem: weatherList[indexPath.row])
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
