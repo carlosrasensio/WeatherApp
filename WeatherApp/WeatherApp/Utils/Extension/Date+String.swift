@@ -26,7 +26,7 @@ extension Date {
 extension String {
   func stringtoDate() -> Date? {
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy-dd-mm HH:mm:ss"
+    dateFormatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
     
     return dateFormatter.date(from: self)
   }
