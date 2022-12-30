@@ -58,14 +58,6 @@ final class WeatherHomeViewController: UIViewController {
     cityLabel.text = viewModel?.city
     countryCodeLabel.text = viewModel?.country
   }
-  
-  // MARK: Reload table view
-  func reloadTableView() {
-    DispatchQueue.main.async {
-      self.showLoading(false)
-      self.tableView.reloadData()
-    }
-  }
 }
 
 // MARK: - Private UI methods
@@ -143,6 +135,13 @@ private extension WeatherHomeViewController {
       activityIndicator.startAnimating()
     } else {
       activityIndicator.stopAnimating()
+    }
+  }
+  
+  func reloadTableView() {
+    DispatchQueue.main.async {
+      self.showLoading(false)
+      self.tableView.reloadData()
     }
   }
 }
