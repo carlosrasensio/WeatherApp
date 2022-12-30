@@ -7,10 +7,20 @@
 
 import Foundation
 
-final class WeatherHomeViewModel {
+protocol WeatherHomeViewModelProtocol {
+  var view: WeatherHomeViewController? { get }
+  var networkManager: WeatherNetworkManager { get }
+  var forecast: Forecast? { get set }
+  var city: String { get }
+  var country: String { get }
+  func getLocationWeatherAsync() async throws -> Forecast
+}
+
+final class WeatherHomeViewModel: WeatherHomeViewModelProtocol {
   // MARK: Variables
-  private weak var view: WeatherHomeViewController?
-  private var networkManager: WeatherNetworkManager
+  weak var view: WeatherHomeViewController?
+  var networkManager: WeatherNetworkManager
+  
   var forecast: Forecast?
   
   var city: String {
@@ -36,7 +46,7 @@ final class WeatherHomeViewModel {
     do {
       let result = try await networkManager.getLocationWeather()
       forecast = result
-      print("👀 Forecast: ", forecast)
+      print("👀 Forecast: ", result)
       
       return result
     } catch {

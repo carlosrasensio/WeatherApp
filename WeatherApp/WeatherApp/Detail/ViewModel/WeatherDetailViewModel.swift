@@ -7,9 +7,19 @@
 
 import Foundation
 
-final class WeatherDetailViewModel {
+protocol WeatherDetailViewModelProtocol {
+  var view: WeatherDetailViewController? { get }
+  var listItem: ListItem? { get set }
+  var day: String { get }
+  var imageURL: String? { get }
+  var temperature: String { get }
+  var weatherDescription: String { get }
+}
+
+final class WeatherDetailViewModel: WeatherDetailViewModelProtocol {
   // MARK: Variables
-  private weak var view: WeatherDetailViewController?
+  weak var view: WeatherDetailViewController?
+  
   var listItem: ListItem?
   
   var day: String {

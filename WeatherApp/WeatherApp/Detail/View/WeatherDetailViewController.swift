@@ -17,7 +17,7 @@ final class WeatherDetailViewController: UIViewController {
   private lazy var weatherDescriptionLabel = UILabel()
   
   // MARK: Variables
-  private var viewModel: WeatherDetailViewModel?
+  private var viewModel: WeatherDetailViewModelProtocol?
   var listItem: ListItem?
   
   // MARK: Bind ViewModel

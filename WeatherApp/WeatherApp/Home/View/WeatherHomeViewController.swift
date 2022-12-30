@@ -16,7 +16,7 @@ final class WeatherHomeViewController: UIViewController {
   private lazy var tableView = UITableView()
   
   // MARK: Variables
-  private var viewModel: WeatherHomeViewModel?
+  private var viewModel: WeatherHomeViewModelProtocol?
   private var networkManager: WeatherNetworkManager
   private var weatherList = [ListItem]() {
     didSet {
