@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		70857A39295F861D00DB5A51 /* WeatherNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70857A38295F861D00DB5A51 /* WeatherNetworkManager.swift */; };
 		709872CF29538B65005DE453 /* WeatherHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709872CE29538B65005DE453 /* WeatherHomeViewController.swift */; };
 		709872D129538B70005DE453 /* WeatherHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709872D029538B70005DE453 /* WeatherHomeViewModel.swift */; };
 		709872D32953917E005DE453 /* WeatherHomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709872D22953917E005DE453 /* WeatherHomeTableViewCell.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		70857A38295F861D00DB5A51 /* WeatherNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherNetworkManager.swift; sourceTree = "<group>"; };
 		709872CE29538B65005DE453 /* WeatherHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHomeViewController.swift; sourceTree = "<group>"; };
 		709872D029538B70005DE453 /* WeatherHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHomeViewModel.swift; sourceTree = "<group>"; };
 		709872D22953917E005DE453 /* WeatherHomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHomeTableViewCell.swift; sourceTree = "<group>"; };
@@ -193,8 +195,9 @@
 			isa = PBXGroup;
 			children = (
 				70BA3FE029537CC600F14D15 /* NetworkManager.swift */,
-				70BA3FE229537CD500F14D15 /* RequestHandler.swift */,
+				70857A38295F861D00DB5A51 /* WeatherNetworkManager.swift */,
 				70BA3FEC2953899900F14D15 /* NetworkError.swift */,
+				70BA3FE229537CD500F14D15 /* RequestHandler.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				70BA3FED2953899900F14D15 /* NetworkError.swift in Sources */,
 				709872D32953917E005DE453 /* WeatherHomeTableViewCell.swift in Sources */,
 				70BA3FA529537AF300F14D15 /* AppDelegate.swift in Sources */,
+				70857A39295F861D00DB5A51 /* WeatherNetworkManager.swift in Sources */,
 				709872E32954E664005DE453 /* Date+String.swift in Sources */,
 				70BA3FA729537AF300F14D15 /* SceneDelegate.swift in Sources */,
 				709872DE2954C840005DE453 /* UIViewController+Alert.swift in Sources */,

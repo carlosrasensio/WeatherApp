@@ -8,27 +8,21 @@
 import Foundation
 
 protocol NetworkManagerProtocol {
-  var requestHandler: RequestHandler { get }
-  func getLocationWeather() async throws -> Forecast
+  func request<T: Codable>(url: URL) async throws -> T
 }
 
-final class NetworkManager: NetworkManagerProtocol {
-  let requestHandler = RequestHandler()
-  
-  func getLocationWeather() async throws -> Forecast {
-    let url = requestHandler.getURL()
+class NetworkManager {
+  func request<T: Codable>(url: URL) async throws -> T {
     let (data, response) = try await URLSession.shared.data(from: url)
-    
+
     if let response = response as? HTTPURLResponse, !(200...299).contains(response.statusCode) {
       print("\n❌ Server Error: response status code \(response.statusCode)")
       throw NetworkError.serverError(statusCode: response.statusCode)
     }
     
     do {
-      let decoder = JSONDecoder()
-      let locationWeather = try decoder.decode(Forecast.self, from: data)
-      
-      return locationWeather
+      let result = try JSONDecoder().decode(T.self, from: data)
+      return result
     } catch {
       print("\n❌ Decoding Error: \(error.localizedDescription)")
       throw NetworkError.decodingError(error)
