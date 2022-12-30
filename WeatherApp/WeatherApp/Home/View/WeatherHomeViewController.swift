@@ -17,9 +17,7 @@ final class WeatherHomeViewController: UIViewController {
   
   // MARK: Variables
   private var viewModel: WeatherHomeViewModel?
-  private var networkManager: NetworkManager
-  private let cellId = "cellId"
-  private var forecast: Forecast?
+  private var networkManager: WeatherNetworkManager
   private var weatherList = [ListItem]() {
     didSet {
       reloadTableView()
@@ -32,7 +30,7 @@ final class WeatherHomeViewController: UIViewController {
   }
   
   // MARK: - Initializer
-  init(networkManager: NetworkManager) {
+  init(networkManager: WeatherNetworkManager) {
     self.networkManager = networkManager
     super.init(nibName: nil, bundle: nil)
   }
@@ -46,22 +44,26 @@ final class WeatherHomeViewController: UIViewController {
     super.viewDidLoad()
     bind()
     setupUI()
-    getLocationWeather()
+    setupInfo()
   }
   
-  // MARK: Network data
-  func getLocationWeather() {
-    Task {
-      do {
-        let result = try await viewModel?.getLocationWeatherAsync()
-        forecast = result
-        guard let forecast else { throw NetworkError.noData }
-        weatherList = forecast.list
-        setupInfo()
-      } catch {
-        print("❌ [V] Request failed with error: \(error)")
-        showAlert(title: "ERROR", message: error.localizedDescription)
-      }
+  // MARK: Setup info
+  func setupInfo() {
+    guard let forecast = viewModel?.forecast else {
+      showAlert(title: "ERROR", message: "Data not available")
+      return
+    }
+    
+    weatherList = forecast.list
+    cityLabel.text = viewModel?.city
+    countryCodeLabel.text = viewModel?.country
+  }
+  
+  // MARK: Reload table view
+  func reloadTableView() {
+    DispatchQueue.main.async {
+      self.showLoading(false)
+      self.tableView.reloadData()
     }
   }
 }
@@ -77,16 +79,6 @@ private extension WeatherHomeViewController {
       self.setupCountryCodeLabel()
       self.setupTableView()
     }
-  }
-  
-  func setupInfo() {
-    guard let forecast else {
-      showAlert(title: "ERROR", message: "We have experienced problems retrieving data. Try again later.")
-      return
-    }
-    
-    cityLabel.text = forecast.city.name
-    countryCodeLabel.text = forecast.city.country
   }
   
   func setupActivityIndicator() {
@@ -145,13 +137,6 @@ private extension WeatherHomeViewController {
     tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
   }
   
-  func reloadTableView() {
-    DispatchQueue.main.async {
-      self.showLoading(false)
-      self.tableView.reloadData()
-    }
-  }
-  
   func showLoading(_ value: Bool) {
     activityIndicator.isHidden = !value
     if value {
@@ -186,7 +171,7 @@ extension WeatherHomeViewController: UITableViewDataSource {
     if let date = dateString.stringtoDate() {
       cell.textLabel?.text = "\(date.dateToHourString())"
     } else {
-      cell.textLabel?.text = "-"
+      cell.textLabel?.text = dateString
     }
     
     return cell
@@ -201,6 +186,6 @@ extension WeatherHomeViewController: UITableViewDelegate {
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-      100
+    100
   }
 }
