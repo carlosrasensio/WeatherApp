@@ -17,13 +17,29 @@ final class WeatherDetailViewController: UIViewController {
   private lazy var weatherDescriptionLabel = UILabel()
   
   // MARK: Variables
+  private var viewModel: WeatherDetailViewModel?
   var listItem: ListItem?
+  
+  // MARK: Bind ViewModel
+  func bind() {
+    viewModel = WeatherDetailViewModel(view: self)
+    viewModel?.listItem = listItem
+  }
   
   // MARK: Life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
+    bind()
     setupUI()
     setupInfo()
+  }
+  
+  // MARK: Setup info
+  func setupInfo() {
+    dayLabel.text = viewModel?.day
+    weatherImageVIew.getImageFromURL(urlString: viewModel?.imageURL)
+    temperatureLabel.text = viewModel?.temperature
+    weatherDescriptionLabel.text = viewModel?.weatherDescription
   }
 }
 
@@ -38,19 +54,6 @@ private extension WeatherDetailViewController {
     setupWeatherImageView()
     setupTemperatureLabel()
     setupWeatherDescriptionLabel()
-  }
-  
-  func setupInfo() {
-    guard let listItem else {
-      showAlert(title: "ERROR", message: "We have experienced problems retrieving data. Try again later.")
-      return
-    }
-    
-    dayLabel.text = listItem.dateString.stringtoDate()?.dateToHourString()
-    let imageUrl = Constants.NetworkManager.URLs.icon + listItem.weather[0].icon + ".png"
-    weatherImageVIew.getImageFromURL(urlString: imageUrl)
-    temperatureLabel.text = "\(listItem.main.temp)℃"
-    weatherDescriptionLabel.text = listItem.weather[0].weatherDescription
   }
   
   func setupActivityIndicator() {
