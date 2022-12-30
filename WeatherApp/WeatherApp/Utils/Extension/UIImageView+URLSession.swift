@@ -8,9 +8,14 @@
 import UIKit
 
 extension UIImageView {
-  func getImageFromURL(urlString: String) {
+  func getImageFromURL(urlString: String?) {
     if self.image == nil {
       self.image = UIImage(named: "icnOpenWeather")
+    }
+    
+    guard let urlString else {
+      self.image = UIImage(named: "icnOpenWeather")
+      return
     }
     
     URLSession.shared.dataTask(with: URL(string: urlString)!) { data, response, error in
