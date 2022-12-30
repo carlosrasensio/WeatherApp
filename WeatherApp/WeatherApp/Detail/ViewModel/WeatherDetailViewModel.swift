@@ -29,7 +29,7 @@ final class WeatherDetailViewModel: WeatherDetailViewModelProtocol {
   }
   
   var imageURL: String? {
-    guard let listItem else { return "Unknown day" }
+    guard let listItem else { return "Unknown image URL" }
     
     return Constants.NetworkManager.URLs.icon + listItem.weather[0].icon + ".png"
   }
