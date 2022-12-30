@@ -133,7 +133,7 @@ private extension WeatherHomeViewController {
   func setupTableView() {
     view.addSubview(tableView)
     
-    tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+    tableView.register(UITableViewCell.self, forCellReuseIdentifier: WeatherHomeTableViewCell.cellId)
     tableView.delegate = self
     tableView.dataSource = self
     
@@ -180,10 +180,8 @@ extension WeatherHomeViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-    cell.backgroundColor = .white
-    cell.textLabel?.textColor = Constants.appColor
-    cell.textLabel?.font = UIFont.systemFont(ofSize: 20)
+    let cell = tableView.dequeueReusableCell(withIdentifier: WeatherHomeTableViewCell.cellId, for: indexPath)
+
     let dateString = weatherList[indexPath.row].dateString
     if let date = dateString.stringtoDate() {
       cell.textLabel?.text = "\(date.dateToHourString())"
