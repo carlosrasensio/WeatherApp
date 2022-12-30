@@ -14,10 +14,6 @@ protocol WeatherNetworkManagerProtocol {
 
 final class WeatherNetworkManager: WeatherNetworkManagerProtocol {
   let requestHandler = RequestHandler()
-
-//  func getLocationWeather() async throws -> Forecast {
-//    try await request(url: requestHandler.getURL())
-//  }
   
   func getLocationWeather() async throws -> Forecast {
     let url = requestHandler.getURL()
@@ -39,9 +35,3 @@ final class WeatherNetworkManager: WeatherNetworkManagerProtocol {
     }
   }
 }
-
-//extension WeatherNetworkManager: NetworkManagerProtocol {
-//    func request<Forecast>(url: URL) async throws -> Forecast {
-//      // TODO
-//    }
-//}
